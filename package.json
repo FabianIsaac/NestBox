@@ -1,0 +1,22 @@
+{
+  "name": "nestbox",
+  "version": "1.0.0",
+  "description": "Template y entorno de desarrollo para aplicaciones de NestJS",
+  "main": "index.js",
+  "scripts": {
+    "init": "docker-compose run --rm app nest new . -p npm --directory ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FabianIsaac/NestBox.git"
+  },
+  "keywords": [
+    "NestJs"
+  ],
+  "author": "Fabián Quintanilla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FabianIsaac/NestBox/issues"
+  },
+  "homepage": "https://github.com/FabianIsaac/NestBox#readme"
+}
