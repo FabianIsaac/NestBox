@@ -4,7 +4,7 @@
   "description": "Template y entorno de desarrollo para aplicaciones de NestJS",
   "main": "index.js",
   "scripts": {
-    "init": "docker-compose run --rm app nest new . -p npm --directory ."
+    "init": "rm -f package.json && docker-compose run --rm app nest new . -p npm --directory ."
   },
   "repository": {
     "type": "git",
