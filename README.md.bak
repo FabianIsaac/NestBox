@@ -1,0 +1,78 @@
+# Entorno de Desarrollo para NestJS y MariaDB
+
+Este proyecto está configurado para trabajar con una aplicación NestJS y una base de datos MariaDB utilizando Docker y Docker Compose. 
+A continuación se detallan los pasos a seguir para configurar el entorno y cómo utilizar los comandos disponibles.
+
+## Requisitos
+
+- [Docker](https://www.docker.com/)
+
+## Estructura del Proyecto
+
+- **Dockerfile**: Define la imagen de Docker que se utilizará para el entorno de desarrollo y producción.
+- **docker-compose.yml**: Define los servicios que se ejecutarán, incluyendo la aplicación NestJS y opcionalmente una base de datos.
+- **package.json**: Contiene scripts para facilitar la ejecución de comandos de Docker y NestJS.
+- **.env.example**: Archivo de ejemplo para configurar las variables de entorno de la aplicación.
+
+## configuración
+A continuación se deja un ejemplo de archivo .env para configurar las variables de entorno de la aplicación. Este archivo debe crearse en la raíz del proyecto.
+```sh
+DB_USER=userdb
+DB_PASSWORD=secret
+DB_ROOT_PASSWORD=supersecret
+DB_NAME=dev_db
+DB_HOST=database # Para desarrollo se usa el mismo nombre del servicio de base de datos en docker-compose.yml (database)
+DB_PORT=3306
+```
+> NOTA: El archivo .env debe ser creado antes de ejecutar cualquier comando.
+
+## Comandos Disponibles
+
+### 1. `npm run docker:build`: 
+
+ Este comando construye la imagen Docker de la aplicación y levanta los contenedores. Es útil cuando se necesita crear el entorno desde cero o después de hacer cambios en el Dockerfile o en las dependencias (es decir, cambios en los archivos package.json o package-lock.json).
+
+```bash
+npm run docker:build
+```
+
+### 3. `npm run docker:start`: 
+
+Este comando se utiliza normalmente para iniciar el entorno de desarrollo. Levanta los contenedores de la aplicación utilizando Docker Compose. No reconstruye la imagen, por lo que es más rápido y se usa cuando no hay cambios en las dependencias o el Dockerfile.
+
+```bash
+npm run docker:start
+```
+
+### 4. `npm run docker:stop`: 
+
+Este comando detiene y elimina los contenedores asociados a la aplicación. Es útil para limpiar el entorno de desarrollo o cuando se necesita realizar un rebuild completo.
+
+```bash
+npm run docker:stop
+```
+
+### 5. `npm run docker:rebuild`: 
+
+Este comando detiene, elimina, reconstruye y vuelve a levantar los contenedores. Es útil cuando se han hecho cambios en las dependencias (es decir, cambios en los archivos package.json o package-lock.json), el Dockerfile o la configuración de Docker Compose.
+
+```bash
+npm run docker:rebuild
+```
+
+### 6. `npm run docker:nest <comando>`: 
+
+Este comando permite ejecutar comandos de NestJS dentro del contenedor Docker. Como el CLI de NestJS está instalado en el contenedor, no es necesario tenerlo instalado en la máquina local. Por ejemplo, para generar un módulo:
+
+```bash
+npm run docker:nest generate module cards
+```
+o para generar un servicio:
+
+```bash
+npm run docker:nest generate service cards
+```
+
+## Acceso a la Aplicación
+
+Una vez que los contenedores están en ejecución, la aplicación estará disponible en [localhost:3000](http://localhost:3000). La base de datos se ha configurado y estará disponible en [phpmyadmin](http://localhost:8080), la contraseña y usuario son obtenidos del archivo .env por lo que es requerido crear un archivo .env en la raíz del proyecto con las variables del archivo [.env.example](.env.example).
